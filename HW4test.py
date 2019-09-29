@@ -1,22 +1,20 @@
-import unittest
-from homework_api import get_api
-from nose.tools import assert_true
-import requests
+
+import  unittest
+from homework04 import get_api
+from unittest import mock
 
 
-class TestApi(unittest.TestCase):
-    def testApi(self):
-        self.assertEqual(get_api.get_info_api('yalilu'), 'Right')
-        self.assertEqual(get_api.get_info_api('mhassany'), 'Right')
 
-
-#    def test_request_response(self):
-#        # Send a request to the API server and store the response.
-#        response = requests.get('http://jsonplaceholder.typicode.com/todos')
-#
-#        # Confirm that the request-response cycle completed successfully.
-#        assert_true(response.ok)
-
+class TestMockApi(unittest.TestCase):   
+    def test_mock_api(self):
+        r=get_api()
+        r.get_info_api = mock.Mock(return_value = "The user has 2 repos, names and commits as follows: /nName: GitHubApi567; Commits: 9 /nName: Triangle567; Commits: 9")
+        result = r.get_info_api("yalilu")
+        self.assertEqual(result, "The user has 2 repos, names and commits as follows: /nName: GitHubApi567; Commits: 9 /nName: Triangle567; Commits: 9")
+        
+    
 if __name__ == '__main__':
     print('Running unit tests')
-    unittest.main(verbosity=2)
+    unittest.main()
+   
+
